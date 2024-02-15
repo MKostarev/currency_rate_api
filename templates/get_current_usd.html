@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертер валют</title>
+</head>
+<body>
+    Дата: {{ formatted_date }}<br>
+    <form id="convertForm" method="post">
+        {% csrf_token %}
+        <label for="from_currency">Выберите валюту :</label>
+        <select id="from_currency" name="from_currency">
+            {% for date, name, id, rate in listas %}
+                <option value="{{ rate }}">{{ name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <div id="selectedValue"></div>
+    </form>
+
+    <script>
+        document.getElementById('from_currency').addEventListener('change', function() {
+            var selectedCurrency = document.getElementById('from_currency').value;
+            document.getElementById('selectedValue').innerHTML = 'Выбранная валюта на {{ formatted_date }} :' + selectedCurrency;
+        });
+    </script>
+</body>
+</html>
